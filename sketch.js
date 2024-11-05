@@ -4,7 +4,8 @@ let coinX, coinY;
 let obstacleX, obstacleY;
 let score = 0;
 let gameOver = false;
-let speed
+let speed = 3.5
+let hits = 0
 
 function setup() {
   createCanvas(400, 400);
@@ -118,6 +119,8 @@ function displayStats() {
   fill(0);
   textSize(16);
   text("Score: " + score, 10, 20);
+  text("Hits: " + hits, 100, 20)
+  text("Speed: " + speed, 175, 20)
   // TODO: Add display for hits and speed
 }
 
