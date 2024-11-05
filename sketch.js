@@ -107,10 +107,14 @@ function checkCoinCollection() {
 
 function checkCollisions() {
   // TODO: Check if player hits obstacle
-  if(dist(playerX, playerY, obstacleX, obstacleY)){
+  if(dist(playerX, playerY, obstacleX, obstacleY)<20){
     playerX = width/2
     playerY = height - 20
-    // obstacleX = random(20, width - 20)
+    obstacleX = random(20, width - 20)
+    hits ++
+    if(hits >= 3){
+      gameOver = true
+    }
   }
   // HINT: Similar to coin collection
   // If hit (distance < 20):
