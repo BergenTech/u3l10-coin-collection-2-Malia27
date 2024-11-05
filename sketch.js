@@ -4,7 +4,7 @@ let coinX, coinY;
 let obstacleX, obstacleY;
 let score = 0;
 let gameOver = false;
-let speed = 3.5
+let obstacleSpeed = 3.5
 let hits = 0
 
 function setup() {
@@ -21,8 +21,8 @@ function initializeGame() {
   newCoin();
   
   // Initialize obstacle position
-  obstacleX = 0;
-  obstacleY = random(20, height-20);
+  obstacleX = random(20, width - 20);
+  obstacleY = 0;
 }
 
 function draw() {
@@ -78,19 +78,13 @@ function movePlayer() {
   if (keyIsDown(DOWN_ARROW)){
     playerY += 5
   }
-  
-  // TODO: Add up/down movement
-  // HINT: Use UP_ARROW and DOWN_ARROW keys
-  // Movement should be 5 pixels per frame
-  
-  // TODO: Add boundary checking
-  // HINT: Keep player within canvas bounds
-  // Check against 0, width, and height
 }
 
 function moveObstacle() {
   // TODO: Move obstacle from left to right
-  // HINT: Increase obstacleX by obstacleSpeed
+  // obstacleY moves at obstacleSpeed
+  obstacleY += obstacleSpeed
+
   
   // TODO: Reset obstacle when it goes off screen
   // HINT: Check if obstacleX > width
@@ -99,6 +93,7 @@ function moveObstacle() {
 
 function checkCoinCollection() {
   // TODO: Check if player touches coin
+  
   // HINT: Use dist(playerX, playerY, coinX, coinY)
   // If distance < 15:
   //   - Increase score
@@ -108,6 +103,11 @@ function checkCoinCollection() {
 
 function checkCollisions() {
   // TODO: Check if player hits obstacle
+  if(dist(playerX, playerY, obstacleX, obstacleY)){
+    playerX = width/2
+    playerY = height - 20
+    // obstacleX = random(20, width - 20)
+  }
   // HINT: Similar to coin collection
   // If hit (distance < 20):
   //   - Increase hits
@@ -120,12 +120,13 @@ function displayStats() {
   textSize(16);
   text("Score: " + score, 10, 20);
   text("Hits: " + hits, 100, 20)
-  text("Speed: " + speed, 175, 20)
+  text("Speed: " + obstacleSpeed, 175, 20)
   // TODO: Add display for hits and speed
 }
 
 function displayGameOver() {
   // TODO: Show game over screen
+
   // HINT: Use textAlign(CENTER, CENTER)
   // Show:
   //   - "Game Over" message
@@ -141,6 +142,10 @@ function newCoin() {
 
 function resetGame() {
   // TODO: Reset all game variables
+  obstacleSpeed = 3.5
+  score = 0
+  hits = 0
+  initializeGame()
   // HINT: Reset score, hits, speed
   // Set gameOver to false
   // Call initializeGame()
