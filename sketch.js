@@ -85,8 +85,11 @@ function moveObstacle() {
   // obstacleY moves at obstacleSpeed
   obstacleY += obstacleSpeed
 
-  
   // TODO: Reset obstacle when it goes off screen
+  if(obstacleY >= height - 20){
+    obstacleY = 20
+    obstacleX = random(20, width - 20)
+  }
   // HINT: Check if obstacleX > width
   // Reset to left side and new random Y position
 }
@@ -111,7 +114,8 @@ function checkCollisions() {
     playerX = width/2
     playerY = height - 20
     obstacleX = random(20, width - 20)
-    hits ++
+    hits++
+    obstacleSpeed+=0.5
     if(hits >= 3){
       gameOver = true
     }
@@ -134,7 +138,10 @@ function displayStats() {
 
 function displayGameOver() {
   // TODO: Show game over screen
-
+    keyPressed()
+    text("Game Over", width/2, height/ 2)
+    text("Press R to restart", width/2, 250)
+    textAlign(CENTER, CENTER)
   // HINT: Use textAlign(CENTER, CENTER)
   // Show:
   //   - "Game Over" message
@@ -161,6 +168,10 @@ function resetGame() {
 
 function keyPressed() {
   // TODO: Check for 'R' key to restart game
+  if(key === 'r' || key === 'R'){
+    // resets the game
+    resetGame()
+  }
   // HINT: Use key === 'r' || key === 'R'
   // Only works when game is over
 }
